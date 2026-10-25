@@ -1,0 +1,126 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-ember: var(--ember);
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.14 0.01 20);
+  --foreground: oklch(0.98 0.01 80);
+  --card: oklch(0.18 0.015 25);
+  --card-foreground: oklch(0.98 0.01 80);
+  --popover: oklch(0.18 0.015 25);
+  --popover-foreground: oklch(0.98 0.01 80);
+  --primary: oklch(0.62 0.22 27);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.24 0.02 30);
+  --secondary-foreground: oklch(0.98 0.01 80);
+  --muted: oklch(0.22 0.015 30);
+  --muted-foreground: oklch(0.72 0.02 60);
+  --accent: oklch(0.28 0.03 30);
+  --accent-foreground: oklch(0.98 0.01 80);
+  --destructive: oklch(0.62 0.24 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.28 0.02 30 / 0.6);
+  --input: oklch(0.28 0.02 30 / 0.6);
+  --ring: oklch(0.62 0.22 27);
+  --brand: oklch(0.62 0.24 27);
+  --brand-foreground: oklch(0.99 0 0);
+  --ember: oklch(0.78 0.18 60);
+
+  --gradient-brand: linear-gradient(135deg, oklch(0.62 0.24 27), oklch(0.78 0.18 60));
+  --gradient-hero: linear-gradient(180deg, oklch(0.10 0.01 20 / 0.3) 0%, oklch(0.10 0.01 20 / 0.85) 100%);
+  --shadow-brand: 0 20px 50px -15px color-mix(in oklab, var(--brand) 55%, transparent);
+  --shadow-glow: 0 0 60px color-mix(in oklab, var(--ember) 40%, transparent);
+}
+
+.dark { color-scheme: dark; }
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+}
+
+@utility text-gradient-brand {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-brand {
+  background: var(--gradient-brand);
+}
+
+@utility shadow-brand {
+  box-shadow: var(--shadow-brand);
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--card) 65%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float-y {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--brand) 60%, transparent); }
+  100% { box-shadow: 0 0 0 20px transparent; }
+}
+
+@utility animate-fade-up { animation: fade-up 0.7s cubic-bezier(.2,.7,.2,1) both; }
+@utility animate-float { animation: float-y 5s ease-in-out infinite; }
+@utility animate-pulse-ring { animation: pulse-ring 1.8s cubic-bezier(.2,.7,.2,1) infinite; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
